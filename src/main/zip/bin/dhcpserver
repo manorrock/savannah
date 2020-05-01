@@ -109,7 +109,7 @@ start() {
 	else
 		echo "Starting $NAME..."
 		$JAVA $JAVA_OPTS -Djagornet.dhcp.home="$JAGORNET_DHCP_HOME" \
-						 $JAGORNET_DHCP_MAIN $JAGORNET_DHCP_OPTS & 
+						 $JAGORNET_DHCP_MAIN $JAGORNET_DHCP_OPTS  
 		echo "$!" > $JAGORNET_DHCP_PID
 		sleep 5
 		isRunning
