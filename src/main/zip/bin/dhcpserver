@@ -6,7 +6,7 @@ OP=$1
 # shift causes all arguments to be moved left by one
 # which essentially removes this wrapper script's argument
 shift
-#echo "$@"
+echo "$@"
 JAGORNET_DHCP_OPTS="$@"
 
 if [ -n "$JAVA_HOME" ] ; then
