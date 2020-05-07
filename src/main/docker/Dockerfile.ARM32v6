@@ -26,10 +26,13 @@ ENV PATH=$PATH:/usr/local/jdk/bin
 # CMD ["java", "-jar", "piranha-micro.jar", "--war", "ROOT.war"]
 # COPY target/korat.war /usr/local/piranha/ROOT.war
 
-ADD target/korat.tar.gz /usr/local
+ADD target/savannah.tar.gz /usr/local
 
 WORKDIR /usr/local/korat
 
 RUN ["cross-build-end"]
 
-CMD sh ./start.sh
+#
+# Start Manorrock Savannah
+#
+CMD ["echo", "1234"]
