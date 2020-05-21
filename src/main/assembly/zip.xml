@@ -22,6 +22,14 @@
         </fileSet>
           -->
     </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>commons-cli:commons-cli</include>
+            </includes>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
     <!--
     <dependencySets>
         <dependencySet>
