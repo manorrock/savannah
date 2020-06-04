@@ -39,4 +39,4 @@ WORKDIR /usr/local/savannah/bin
 #
 # Start Manorrock Savannah
 #
-CMD ["echo", "1234"]
+CMD "/usr/local/savannah/bin/start.sh"

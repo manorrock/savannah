@@ -25,6 +25,7 @@
     <dependencySets>
         <dependencySet>
             <includes>
+                <include>org.apache.derby:derby</include>
                 <include>com.h2database:h2</include>
                 <include>commons-cli:commons-cli</include>
                 <include>log4j:log4j</include>
