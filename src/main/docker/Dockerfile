@@ -4,12 +4,12 @@
 FROM debian
 
 #
-# Update Debian and install curl, gnupg2, gzip, software-properties-common and 
-# tar.
+# Update Debian and install curl, dnsutils, gnupg2, gzip,
+# software-properties-common and tar.
 #
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y curl gnupg2 gzip software-properties-common tar && \
+    apt-get install -y curl dnsutils gnupg2 gzip software-properties-common tar && \
     rm -rf /var/lib/apt/lists/*
 
 #
@@ -27,16 +27,39 @@ RUN cd /usr/local && \
 ENV PATH=$PATH:/usr/local/jdk/bin
 
 #
-# Add the Manorrock Savannah distribution.
+# Install Tomcat 9.
+#
+RUN cd /usr/local && \
+    curl --insecure -L -O https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz && \
+    tar xfvz apache-tomcat-9.0.35.tar.gz && \
+    mv apache-tomcat-9.0.35 tomcat && \
+    rm apache-tomcat-9.0.35.tar.gz && \
+    rm -rf tomcat/webapps/*docs* && \
+    rm -rf tomcat/webapps/*examples* && \
+    rm -rf tomcat/webapps/*manager* && \
+    rm -rf tomcat/webapps/ROOT*
+
+#
+# Set work directory.
+#
+WORKDIR /usr/local/tomcat
+
+#
+# Copy Manorrock Savannah into Tomcat 9.
+#
+COPY target/savannah.war /usr/local/tomcat/webapps/ROOT.war
+
+#
+# Copy configuration into Savannah directory.
 #
 ADD target/savannah.tar.gz /usr/local
 
 #
-# Set the WORKDIR
+# Set the JAGORNET_DHCP_HOME
 #
-WORKDIR /usr/local/savannah/bin
+ENV JAGORNET_DHCP_HOME /usr/local/savannah
 
 #
-# Start Manorrock Savannah
+# Setup command to start Tomcat with console output.
 #
-CMD "/usr/local/savannah/bin/start.sh"
+CMD ["bin/catalina.sh", "run"]
