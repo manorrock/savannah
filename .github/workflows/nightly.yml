@@ -21,9 +21,20 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build amd64 image
       run: |
-        docker build -f src/main/docker/Dockerfile -t manorrock/savannah:snapshot .
-        docker push manorrock/savannah:snapshot
-    - name: Build ARM32v6 image
+        docker build -f src/main/docker/Dockerfile.amd64 -t manorrock/savannah:amd64-snapshot .
+        docker push manorrock/savannah:amd64-snapshot
+    - name: Build arm image
       run: |
-        docker build -f src/main/docker/Dockerfile.ARM32v6 -t manorrock/savannah:arm32v6-snapshot .
-        docker push manorrock/savannah:arm32v6-snapshot
+        docker build -f src/main/docker/Dockerfile.arm -t manorrock/savannah:arm-snapshot .
+        docker push manorrock/savannah:arm-snapshot
+    - name: Push Docker manifest
+      run: |
+        export DOCKER_CLI_EXPERIMENTAL=enabled
+        docker manifest create manorrock/savannah:snapshot \
+          manorrock/savannah:amd64-snapshot \
+          manorrock/savannah:arm-snapshot
+        docker manifest annotate manorrock/savannah:snapshot \
+          manorrock/savannah:amd64-snapshot --os linux --arch amd64
+        docker manifest annotate manorrock/savannah:snapshot \
+          manorrock/savannah:arm-snapshot --os linux --arch arm
+        docker manifest push manorrock/savannah:snapshot
