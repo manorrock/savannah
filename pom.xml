@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.manorrock.savannah</groupId>
     <artifactId>savannah</artifactId>
-    <version>20.6.0</version>
+    <version>20.7.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Manorrock Savannah</name>
     <organization>
