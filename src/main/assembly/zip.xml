@@ -12,15 +12,6 @@
             <directory>${project.basedir}/src/main/zip</directory>
             <outputDirectory></outputDirectory>
         </fileSet>
-        <!--
-        <fileSet>
-            <directory>${project.basedir}/target</directory>
-            <includes>
-                <include>savannah-classes.jar</include>
-            </includes>
-            <outputDirectory>lib</outputDirectory>
-        </fileSet>
-          -->
     </fileSets>
     <dependencySets>
         <dependencySet>
@@ -33,15 +24,4 @@
             <outputDirectory>lib</outputDirectory>
         </dependencySet>
     </dependencySets>
-    <!--
-    <dependencySets>
-        <dependencySet>
-            <excludes>
-                <exclude>${project.groupId}:${project.artifactId}:war:*</exclude>
-            </excludes>
-            <outputDirectory>lib</outputDirectory>
-            <useProjectArtifact>true</useProjectArtifact>
-        </dependencySet>
-    </dependencySets>
-      -->
 </assembly>

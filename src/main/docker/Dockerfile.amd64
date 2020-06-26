@@ -11,9 +11,9 @@ COPY target/savannah.war /usr/local/tomcat/webapps/ROOT.war
 #
 # Copy configuration into Savannah directory.
 #
-ADD target/savannah.tar.gz /usr/local
+ADD target/savannah.tar.gz /root/.manorrock
 
 #
 # Set the JAGORNET_DHCP_HOME
 #
-ENV JAGORNET_DHCP_HOME /usr/local/savannah
+ENV JAGORNET_DHCP_HOME /root/.manorrock/savannah
