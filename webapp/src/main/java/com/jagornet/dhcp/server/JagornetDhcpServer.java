@@ -54,9 +54,6 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.jmx.HierarchyDynamicMBean;
-import org.apache.log4j.spi.LoggerRepository;
 import org.apache.xmlbeans.XmlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -200,8 +197,6 @@ public class JagornetDhcpServer
 		
 		loadManagers();
 		
-        registerLog4jInJmx();
-
         String msg = null;
         
         // by default, all non-loopback, non-linklocal,
@@ -986,41 +981,5 @@ public class JagornetDhcpServer
     public static DhcpServerConfig getDhcpServerConfig()
     {
         return DhcpServerConfiguration.getInstance().getDhcpServerConfig();
-    }
-        
-    /**
-     * Register Log4J in JMX to allow dynamic configuration
-     * of server logging using JMX client (e.g. jconsole).
-     */
-    @SuppressWarnings("unchecked")
-    public static void registerLog4jInJmx()
-    {
-        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();  
-        try {
-            // Create and Register the top level Log4J MBean
-            HierarchyDynamicMBean hdm = new HierarchyDynamicMBean();
-            ObjectName mbo = new ObjectName("log4j:hiearchy=default");
-            mbs.registerMBean(hdm, mbo);
-    
-            // Add the root logger to the Hierarchy MBean
-            org.apache.log4j.Logger rootLogger =
-            	org.apache.log4j.Logger.getRootLogger();
-            hdm.addLoggerMBean(rootLogger.getName());
-    
-            // Get each logger from the Log4J Repository and add it to
-            // the Hierarchy MBean created above.
-            LoggerRepository r = LogManager.getLoggerRepository();
-            Enumeration<Logger> loggers = r.getCurrentLoggers();
-            if (loggers != null) {
-                while (loggers.hasMoreElements()) {
-                	org.apache.log4j.Logger logger = 
-                		(org.apache.log4j.Logger) loggers.nextElement();
-                    hdm.addLoggerMBean(logger.getName());
-                }
-            }
-        }
-        catch (Exception ex) {
-            log.error("Failure registering Log4J in JMX: " + ex);
-        }
     }
 }
