@@ -32,18 +32,19 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * The ServletContainerInitializer that is used to bootstrap the DHCP server side.
- * 
+ * The ServletContainerInitializer that is used to bootstrap the DHCP server
+ * side.
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 public class SavannahInitializer implements ServletContainerInitializer {
 
     /**
      * On startup of the web application.
-     * 
+     *
      * @param classes the set of annotated classes.
      * @param servletContext the Servlet context.
-     * @throws ServletException when a serious error occurs. 
+     * @throws ServletException when a serious error occurs.
      */
     @Override
     public void onStartup(Set<Class<?>> classes, ServletContext servletContext) throws ServletException {

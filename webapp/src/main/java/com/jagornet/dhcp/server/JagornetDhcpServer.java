@@ -941,7 +941,6 @@ public class JagornetDhcpServer
         catch (Exception ex) {
             System.err.println("DhcpServer ABORT!");
             ex.printStackTrace();
-            System.exit(1);
         }
 	}
     
