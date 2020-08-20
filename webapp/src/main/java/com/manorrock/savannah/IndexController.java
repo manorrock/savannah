@@ -25,36 +25,27 @@
  */
 package com.manorrock.savannah;
 
-import com.jagornet.dhcp.server.JagornetDhcpServer;
-import java.util.Set;
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import java.io.Serializable;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import org.omnifaces.oyena.action.ActionMapping;
 
 /**
- * The ServletContainerInitializer that is used to bootstrap the DHCP server
- * side.
+ * The controller for the index page.
  *
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public class SavannahInitializer implements ServletContainerInitializer {
+@Named("indexController")
+@RequestScoped
+public class IndexController implements Serializable {
 
     /**
-     * On startup of the web application.
+     * Execute the page.
      *
-     * @param classes the set of annotated classes.
-     * @param servletContext the Servlet context.
-     * @throws ServletException when a serious error occurs.
+     * @return /index.xhtml
      */
-    @Override
-    public void onStartup(Set<Class<?>> classes, ServletContext servletContext) throws ServletException {
-        if (System.getenv("JAGORNET_DHCP_HOME") != null) {
-            System.setProperty("jagornet.dhcp.home", System.getenv("JAGORNET_DHCP_HOME"));
-        }
-        try {
-            JagornetDhcpServer.main(new String[]{});
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+    @ActionMapping("/")
+    public String execute() {
+        return "/WEB-INF/ui/index.xhtml";
     }
 }

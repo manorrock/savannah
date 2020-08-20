@@ -1,5 +1,7 @@
+package com.manorrock.savannah;
+
 /*
- *  Copyright (c) 2002-2020, Manorrock.com. All Rights Reserved.
+ *  Copyright (c) 2002-2019, Manorrock.com. All Rights Reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
@@ -23,38 +25,17 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-package com.manorrock.savannah;
 
-import com.jagornet.dhcp.server.JagornetDhcpServer;
-import java.util.Set;
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.annotation.FacesConfig;
 
 /**
- * The ServletContainerInitializer that is used to bootstrap the DHCP server
- * side.
- *
+ * The FacesConfig bean.
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public class SavannahInitializer implements ServletContainerInitializer {
-
-    /**
-     * On startup of the web application.
-     *
-     * @param classes the set of annotated classes.
-     * @param servletContext the Servlet context.
-     * @throws ServletException when a serious error occurs.
-     */
-    @Override
-    public void onStartup(Set<Class<?>> classes, ServletContext servletContext) throws ServletException {
-        if (System.getenv("JAGORNET_DHCP_HOME") != null) {
-            System.setProperty("jagornet.dhcp.home", System.getenv("JAGORNET_DHCP_HOME"));
-        }
-        try {
-            JagornetDhcpServer.main(new String[]{});
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }
+@ApplicationScoped
+@FacesConfig
+public class FacesConfigBean {
 }
