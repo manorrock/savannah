@@ -18,7 +18,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build amd64 image
       run: |
-        cd webapp
         docker build -f Dockerfile.amd64 -t manorrock/savannah:amd64-snapshot .
         docker push manorrock/savannah:amd64-snapshot
     - name: Push Docker manifest
