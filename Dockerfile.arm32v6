@@ -4,5 +4,6 @@ RUN apt-get -y update && \
     apt-get -y install isc-dhcp-server && \
     rm -rf /var/lib/apt/lists/*
 WORKDIR /mnt
+COPY src/main/dhcpd /mnt
 CMD ["dhcpd", "-4", "-f", "-d", "--no-pid", "-cf", "/mnt/dhcpd.conf", "-lf", "/mnt/dhcpd.leases"]
 RUN ["cross-build-end"]
